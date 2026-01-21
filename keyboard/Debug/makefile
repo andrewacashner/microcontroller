@@ -13,7 +13,9 @@ ORDERED_OBJS += \
 "./clock.o" \
 "./lcd1602.o" \
 "./main.o" \
+"./midi_to_lcd.o" \
 "./music.o" \
+"./read_midi.o" \
 "./spi.o" \
 "./uart.o" \
 "./ticlang/startup_mspm0g3507_ticlang.o" \
@@ -136,15 +138,16 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 default_project.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/bin/tiarmclang" -march=thumbv6m -mcpu=cortex-m0plus -mfloat-abi=soft -mlittle-endian -mthumb -O0 -D__MSPM0G3507__ -gdwarf-3 -Wl,-m"default_project.map" -Wl,--heap_size=0x800 -Wl,--stack_size=512 -Wl,-i"/Applications/ti/mspm0_sdk_2_01_00_03/source" -Wl,-i"/Users/andrewacashner/Documents/microcontroller/default_project" -Wl,-i"/Users/andrewacashner/Documents/microcontroller/default_project/Debug/syscfg" -Wl,-i"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib" -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--xml_link_info="default_project_linkInfo.xml" -Wl,--rom_model -o "default_project.out" $(ORDERED_OBJS)
+	"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/bin/tiarmclang" -march=thumbv6m -mcpu=cortex-m0plus -mfloat-abi=soft -mlittle-endian -mthumb -O0 -D__MSPM0G3507__ -gdwarf-3 -Wl,-m"default_project.map" -Wl,--heap_size=0x800 -Wl,--stack_size=512 -Wl,-i"/Applications/ti/mspm0_sdk_2_01_00_03/source" -Wl,-i"/Users/andrewacashner/Documents/microcontroller/keyboard" -Wl,-i"/Users/andrewacashner/Documents/microcontroller/keyboard/Debug/syscfg" -Wl,-i"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib" -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--xml_link_info="default_project_linkInfo.xml" -Wl,--rom_model -o "default_project.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "LaunchPad.o" "adc.o" "clock.o" "lcd1602.o" "main.o" "music.o" "spi.o" "uart.o" "ticlang/startup_mspm0g3507_ticlang.o" 
+	-$(RM) "LaunchPad.o" "adc.o" "clock.o" "lcd1602.o" "main.o" "midi_to_lcd.o" "music.o" "read_midi.o" "spi.o" "uart.o" "ticlang/startup_mspm0g3507_ticlang.o" 
 	-$(RM) "LaunchPad.d" "adc.d" "clock.d" "lcd1602.d" "main.d" "music.d" "spi.d" "uart.d" "ticlang/startup_mspm0g3507_ticlang.d" 
+	-$(RM) "midi_to_lcd.d" "read_midi.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

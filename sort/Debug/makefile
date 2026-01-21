@@ -17,6 +17,7 @@ ORDERED_OBJS += \
 "./sort.o" \
 "./spi.o" \
 "./uart.o" \
+"./draft/sort.o" \
 "./ticlang/startup_mspm0g3507_ticlang.o" \
 "../mspm0g3507.cmd" \
 $(GEN_CMDS__FLAG) \
@@ -30,8 +31,10 @@ RMDIR := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include draft/subdir_vars.mk
 -include ticlang/subdir_vars.mk
 -include subdir_rules.mk
+-include draft/subdir_rules.mk
 -include ticlang/subdir_rules.mk
 -include objects.mk
 
@@ -137,16 +140,16 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 asm_playground.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.1.LTS/bin/tiarmclang" -march=thumbv6m -mcpu=cortex-m0plus -mfloat-abi=soft -mlittle-endian -mthumb -O0 -D__MSPM0G3507__ -gdwarf-3 -Wl,-m"asm_playground.map" -Wl,--heap_size=0x800 -Wl,--stack_size=512 -Wl,-i"/Applications/ti/mspm0_sdk_2_01_00_03/source" -Wl,-i"/Users/andrewacashner/Library/CloudStorage/OneDrive-Personal/Projects/MCC/CSC202-Microcontrollers/csc202_workspace/asm_playground" -Wl,-i"/Users/andrewacashner/Library/CloudStorage/OneDrive-Personal/Projects/MCC/CSC202-Microcontrollers/csc202_workspace/asm_playground/Debug/syscfg" -Wl,-i"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.1.LTS/lib" -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--xml_link_info="asm_playground_linkInfo.xml" -Wl,--rom_model -o "asm_playground.out" $(ORDERED_OBJS)
+	"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.1.LTS/bin/tiarmclang" -march=thumbv6m -mcpu=cortex-m0plus -mfloat-abi=soft -mlittle-endian -mthumb -O0 -D__MSPM0G3507__ -gdwarf-3 -Wl,-m"asm_playground.map" -Wl,--heap_size=0x800 -Wl,--stack_size=512 -Wl,-i"/Applications/ti/mspm0_sdk_2_01_00_03/source" -Wl,-i"/Users/andrewacashner/Documents/microcontroller/sort" -Wl,-i"/Users/andrewacashner/Documents/microcontroller/sort/Debug/syscfg" -Wl,-i"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.1.LTS/lib" -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--xml_link_info="asm_playground_linkInfo.xml" -Wl,--rom_model -o "asm_playground.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "LaunchPad.o" "adc.o" "clock.o" "lcd1602.o" "linked_list.o" "main-playground.o" "sort.o" "spi.o" "uart.o" "ticlang/startup_mspm0g3507_ticlang.o" 
+	-$(RM) "LaunchPad.o" "adc.o" "clock.o" "lcd1602.o" "linked_list.o" "main-playground.o" "sort.o" "spi.o" "uart.o" "draft/sort.o" "ticlang/startup_mspm0g3507_ticlang.o" 
 	-$(RM) "LaunchPad.d" "adc.d" "clock.d" "lcd1602.d" "main-playground.d" "spi.d" "uart.d" "ticlang/startup_mspm0g3507_ticlang.d" 
-	-$(RM) "linked_list.d" "sort.d" 
+	-$(RM) "linked_list.d" "sort.d" "draft/sort.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

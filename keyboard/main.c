@@ -9,10 +9,6 @@
 #include "music.h"
 
 #define BAUD_RATE       (31250)
-#define LCD_LINE_LENGTH (16)
-#define ENTER_KEY       ('\r')
-#define BACKSPACE_KEY   ('\b')
-#define MIDI_NOTE_ON    (0x90)
 #define MIDI_NOTE_OFF   (0x80)
 
 typedef struct MidiSignal {
@@ -21,8 +17,11 @@ typedef struct MidiSignal {
     uint8_t data2;
 } MidiSignal;
 
-void MidiSignal_to_lcd(MidiSignal signal);
 void buzzer_play_midi(MidiSignal signal);
+
+// ASM
+void read_midi(MidiSignal *input);
+void midi_to_lcd(MidiSignal midi);
 
 int main(void)
 {
@@ -44,34 +43,12 @@ int main(void)
 
     while (1)
     {
-        uint8_t input_byte = 0;
-
-        while (!((input_byte = UART_in_char()) == MIDI_NOTE_ON
-                 || input_byte == MIDI_NOTE_OFF))
-        { /* just wait for valid signal */ };
-
-        input.status = input_byte;
-        input.data1 = UART_in_char();
-        input.data2 = UART_in_char();
-
-        MidiSignal_to_lcd(input);
+        read_midi(&input);
+        midi_to_lcd(input);
         buzzer_play_midi(input);
     }
-    
-    while (1);
 
 } /* main */
-
-void MidiSignal_to_lcd(MidiSignal signal)
-{
-    lcd_clear();
-    lcd_write_char(hex_to_ascii(signal.status >> 4));
-    lcd_write_char(hex_to_ascii(signal.status));
-    lcd_write_char(' ');
-    lcd_write_byte(signal.data1);
-    lcd_write_char(' ');
-    lcd_write_byte(signal.data2);
-}
 
 void buzzer_play_midi(MidiSignal signal)
 {

@@ -6,6 +6,10 @@
 CMD_SRCS += \
 ../mspm0g3507.cmd 
 
+S_SRCS += \
+../midi_to_lcd.s \
+../read_midi.s 
+
 C_SRCS += \
 ../LaunchPad.c \
 ../adc.c \
@@ -15,6 +19,10 @@ C_SRCS += \
 ../music.c \
 ../spi.c \
 ../uart.c 
+
+S_DEPS += \
+./midi_to_lcd.d \
+./read_midi.d 
 
 C_DEPS += \
 ./LaunchPad.d \
@@ -32,7 +40,9 @@ OBJS += \
 ./clock.o \
 ./lcd1602.o \
 ./main.o \
+./midi_to_lcd.o \
 ./music.o \
+./read_midi.o \
 ./spi.o \
 ./uart.o 
 
@@ -42,7 +52,9 @@ OBJS__QUOTED += \
 "clock.o" \
 "lcd1602.o" \
 "main.o" \
+"midi_to_lcd.o" \
 "music.o" \
+"read_midi.o" \
 "spi.o" \
 "uart.o" 
 
@@ -56,6 +68,10 @@ C_DEPS__QUOTED += \
 "spi.d" \
 "uart.d" 
 
+S_DEPS__QUOTED += \
+"midi_to_lcd.d" \
+"read_midi.d" 
+
 C_SRCS__QUOTED += \
 "../LaunchPad.c" \
 "../adc.c" \
@@ -64,5 +80,9 @@ C_SRCS__QUOTED += \
 "../music.c" \
 "../spi.c" \
 "../uart.c" 
+
+S_SRCS__QUOTED += \
+"../midi_to_lcd.s" \
+"../read_midi.s" 
 
 
