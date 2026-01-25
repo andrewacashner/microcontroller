@@ -4,6 +4,9 @@
 
     Wait for a single MIDI signal input (NOTE ON or NOTE OFF only), parse and save it.
 
+    AUTHOR
+        Andrew Cashner, 2026/01/21
+        
     INPUT
         R0: Address of MidiSignal struct instance
     

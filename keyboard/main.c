@@ -23,6 +23,8 @@ void buzzer_play_midi(MidiSignal signal);
 void read_midi(MidiSignal *input);
 void midi_to_lcd(MidiSignal midi);
 
+void mathacl_init();
+
 int main(void)
 {
     clock_init_40mhz();
@@ -38,6 +40,8 @@ int main(void)
     UART_init(BAUD_RATE);
 
     buzzer_init();
+    
+    mathacl_init();
 
     MidiSignal input = { 0, 0, 0 };
 
