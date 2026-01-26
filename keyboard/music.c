@@ -28,7 +28,6 @@ float Pitch_frequency(Pitch_t pitch)
 
 float sine_values[90] = { 0.0 };
 
-#define RADIAN ((float) M_PI / 180)
 
 /* 
 Initialize the buzzer motor and precalculate sine values for
@@ -43,35 +42,10 @@ void buzzer_init(void)
 
   for (uint16_t theta = 0; theta < 90; ++theta)
   { 
-    // Calculate the sine of theta in degrees
     float radians = (float) theta * RADIAN;
     sine_values[theta] = sin(radians);
   }
 } /* buzzer_init */
-
-float sine(uint16_t degrees)
-{
-  float sine = 0.0;
-
-  if (degrees < 90)
-  {
-    sine = sine_values[degrees];
-  }
-  else if (degrees < 180)
-  {
-    sine = sine_values[180 - degrees];
-  }
-  else if (degrees < 270)
-  {
-    sine = -sine_values[degrees - 180];
-  }
-  else 
-  {
-    sine = -sine_values[360 - degrees];
-  }
-
-  return sine;
-}
 
 void buzzer_on(void) {
   led_on(BUZZER_PIN_ON);
@@ -87,6 +61,8 @@ void buzzer_play_freq(uint32_t frequency_hz, uint32_t amplitude)
   motor0_pwm_init(frequency_hz, 0);
   motor0_pwm_enable();
   buzzer_on();
+
+  motor0_set_pwm_count(frequency_hz);
 
   // Adapted from Freenove tutorial
   // Calculate sound frequency according to the sine of theta

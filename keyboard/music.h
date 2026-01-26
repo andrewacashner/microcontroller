@@ -50,7 +50,9 @@
 // Buzzer settings
 #define BUZZER_PIN_ON                                                       (1)
 #define BUZZER_INITIAL_PWM                                           (PITCH_A4) 
-#define BUZZER_AMPLITUDE                                                 (4000)
+#define BUZZER_AMPLITUDE                                                 (2000)
+
+#define RADIAN ((float) M_PI / 180)
 
 /*-----------------------------------------------------------------------------
  *  DATA TYPES
