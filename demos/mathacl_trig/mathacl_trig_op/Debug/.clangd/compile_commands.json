@@ -1,0 +1,12 @@
+[
+   {
+      "directory" : "/Users/andrewacashner/Documents/microcontroller/demos/mathacl_trig/mathacl_trig_op/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"/Users/andrewacashner/Documents/microcontroller/demos/mathacl_trig/mathacl_trig_op\" -I\"/Users/andrewacashner/Documents/microcontroller/demos/mathacl_trig/mathacl_trig_op/Debug\" -I\"/Users/andrewacashner/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"/Users/andrewacashner/ti/mspm0_sdk_2_09_00_01/source\" -isystem\"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "/Users/andrewacashner/Documents/microcontroller/demos/mathacl_trig/mathacl_trig_op/mathacl_trig_op.c"
+   },
+   {
+      "directory" : "/Users/andrewacashner/Documents/microcontroller/demos/mathacl_trig/mathacl_trig_op/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"/Users/andrewacashner/Documents/microcontroller/demos/mathacl_trig/mathacl_trig_op\" -I\"/Users/andrewacashner/Documents/microcontroller/demos/mathacl_trig/mathacl_trig_op/Debug\" -I\"/Users/andrewacashner/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"/Users/andrewacashner/ti/mspm0_sdk_2_09_00_01/source\" -isystem\"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"/Applications/ti/ccs2001/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "/Users/andrewacashner/Documents/microcontroller/demos/mathacl_trig/mathacl_trig_op/Debug/ti_msp_dl_config.c"
+   }
+]

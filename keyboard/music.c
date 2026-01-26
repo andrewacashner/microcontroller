@@ -26,10 +26,52 @@ float Pitch_frequency(Pitch_t pitch)
   return equal_tempered_frequency_hz(Pitch_key_num(pitch));
 } /* Pitch_frequency */
 
+float sine_values[90] = { 0.0 };
+
+#define RADIAN ((float) M_PI / 180)
+
+/* 
+Initialize the buzzer motor and precalculate sine values for
+radians 0 < theta < pi / 2; we can calculate everything from those.
+Requires 90 * 32-bit float (360B) space and some constant time for lookups,
+but avoids having to calculate the sin for all angles for every single
+pitch.
+*/
 void buzzer_init(void)
 {
   motor0_init();
+
+  for (uint16_t theta = 0; theta < 90; ++theta)
+  { 
+    // Calculate the sine of theta in degrees
+    float radians = (float) theta * RADIAN;
+    sine_values[theta] = sin(radians);
+  }
 } /* buzzer_init */
+
+float sine(uint16_t degrees)
+{
+  float sine = 0.0;
+
+  if (degrees < 90)
+  {
+    sine = sine_values[degrees];
+  }
+  else if (degrees < 180)
+  {
+    sine = sine_values[180 - degrees];
+  }
+  else if (degrees < 270)
+  {
+    sine = -sine_values[degrees - 180];
+  }
+  else 
+  {
+    sine = -sine_values[360 - degrees];
+  }
+
+  return sine;
+}
 
 void buzzer_on(void) {
   led_on(BUZZER_PIN_ON);
@@ -47,17 +89,32 @@ void buzzer_play_freq(uint32_t frequency_hz, uint32_t amplitude)
   buzzer_on();
 
   // Adapted from Freenove tutorial
-  for (float theta = 0; theta < 360; ++theta)
-  { 
-    // Calculate the sine of theta in degrees
-    float sin_deg = sin(theta * (M_PI / 180)); 
-
-    // Calculate sound frequency according to the sine of theta
-    uint32_t tone = frequency_hz + amplitude * sin_deg;
-
-    // Set PWM to the appropriate duty cycle
+  // Calculate sound frequency according to the sine of theta
+  // Set PWM to the appropriate duty cycle
+  uint16_t theta = 0;
+  uint32_t tone = frequency_hz;
+  
+  for (theta = 0; theta < 90; ++theta)
+  {
+    tone = frequency_hz + amplitude * sine_values[theta];
     motor0_set_pwm_count(tone);
-  } /* for */
+  } 
+  for (; theta > 0; --theta)
+  {
+    tone = frequency_hz + amplitude * sine_values[theta];
+    motor0_set_pwm_count(tone);
+  } 
+  for (; theta < 90; ++theta)
+  {
+    tone = frequency_hz + amplitude * -sine_values[theta];
+    motor0_set_pwm_count(tone);
+  } 
+  for (; theta > 0; --theta)
+  {
+    tone = frequency_hz + amplitude * -sine_values[theta];
+    motor0_set_pwm_count(tone);
+  } 
+  
 } /* buzzer_play_freq */
 
 void buzzer_play_freq_dur(uint32_t frequency_hz, 

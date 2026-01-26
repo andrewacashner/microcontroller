@@ -43,7 +43,7 @@ for (float theta = 0; theta < 90; ++theta)
     tones[theta + 270] = -sincos[1];
 */
 
-.global     sine_wave, mathacl_init
+.global     sine_wave
 
 .data
             .equ        MATHACL_PWREN, 0x404BF800
@@ -51,15 +51,6 @@ for (float theta = 0; theta < 90; ++theta)
             .equ        PI_180, 0.017453293
 */
 .text
-
-mathacl_init:
-            push        {LR}
-            subs        R4, R4, R4
-            adds        R4, R4, #1
-            ldr         R5, =MATHACL_PWREN
-            str         R4, [R5]
-            pop         {PC}
-            blx         LR
 
 sine_wave:
 
